@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agregar Usuario</title>
+</head>
+<body>
+  <h1>Agregar Usuario</h1>
+  <form id="userForm">
+    <input type="text" id="nombre" placeholder="Nombre" required />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="number" id="edad" placeholder="Edad" />
+    <input type="text" id="grado" placeholder="Grado" />
+    <input type="number" step="0.1" id="promedio" placeholder="Promedio" />
+    <input type="text" id="carrera" placeholder="Carrera" />
+    <input type="text" id="estatus" placeholder="Estatus" />
+    <button type="submit">Agregar</button>
+  </form>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const datos = {
+        nombre: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        edad: parseInt(document.getElementById('edad').value),
+        grado: document.getElementById('grado').value,
+        promedio: parseFloat(document.getElementById('promedio').value),
+        carrera: document.getElementById('carrera').value,
+        estatus: document.getElementById('estatus').value
+      };
+
+      const res = await fetch('/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+
+      const result = await res.json();
+      alert(result.message);
+    });
+  </script>
+</body>
+</html>

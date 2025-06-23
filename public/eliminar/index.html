@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eliminar Usuario</title>
+</head>
+<body>
+  <h1>Eliminar Usuario por Nombre</h1>
+  <form id="deleteForm">
+    <input type="text" id="nombreEliminar" placeholder="Nombre a eliminar" required />
+    <button type="submit">Eliminar</button>
+  </form>
+
+  <script>
+    document.getElementById('deleteForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombreEliminar').value;
+
+      const res = await fetch(`/api/usuarios/${nombre}`, {
+        method: 'DELETE'
+      });
+
+      const result = await res.json();
+      alert(result.message);
+    });
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const nombre = form.nombre.value;
+
+      if (!confirm(`¿Estás seguro de eliminar al alumno "${nombre}"?`)) return;
+
+      const res = await fetch(`/api/alumnos/${encodeURIComponent(nombre)}`, {
+        method: 'DELETE'
+      });
+
+      const data = await res.json();
+      alert(data.message || 'Alumno eliminado');
+      form.reset();
+    };
+  </script>
+</body>
+</html>
